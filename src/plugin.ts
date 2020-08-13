@@ -4,6 +4,11 @@ import { IntercomProtocol, UserUpdateOptions } from './definitions';
 const { IntercomPlugin } = Plugins;
 
 export class Intercom implements IntercomProtocol {
+  sendTokenToIntercom(options: {
+    token?: string;
+  }): Promise<void>{
+    return IntercomPlugin.sendTokenToIntercom(options)
+  };
   registerIdentifiedUser(options: {
     userId?: string;
     email?: string;

@@ -5,6 +5,9 @@ declare global {
 }
 
 export interface IntercomProtocol {
+  sendTokenToIntercom(options: {
+    token?: string;
+  }): Promise<void>;
   registerIdentifiedUser(options: {
     userId?: string;
     email?: string;

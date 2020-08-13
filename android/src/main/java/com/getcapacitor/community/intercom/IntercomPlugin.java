@@ -18,10 +18,12 @@ import java.util.Map;
 import io.intercom.android.sdk.Intercom;
 import io.intercom.android.sdk.UserAttributes;
 import io.intercom.android.sdk.identity.Registration;
+import io.intercom.android.sdk.push.IntercomPushClient;
 
 @NativePlugin()
 public class IntercomPlugin extends Plugin {
     public static final String CONFIG_KEY_PREFIX = "plugins.IntercomPlugin.android-";
+    private final IntercomPushClient intercomPushClient = new IntercomPushClient();
 
     @Override()
     public void load() {
@@ -37,6 +39,13 @@ public class IntercomPlugin extends Plugin {
         //
         // load parent
         super.load();
+    }
+
+    @PluginMethod()
+    public void sendTokenToIntercom(PluginCall call){
+        String newToken = call.getString("token");
+        intercomPushClient.sendTokenToIntercom(getActivity().getApplication(), newToken);
+        call.success();
     }
 
 
